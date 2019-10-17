@@ -189,6 +189,8 @@ import {
   editDictData,
   deleteData
 } from "@/api/index";
+import dateUtil from "@/libs/dateUtil.js";
+
 export default {
   name: "dic-manage",
   data() {
@@ -311,7 +313,11 @@ export default {
           title: "创建时间",
           key: "createTime",
           width: 250,
-          sortable: true
+          sortable: true,
+          render: (h, params) => {
+            let time = dateUtil.transDate(params.row.createTime);
+            return h("div", time);
+          }
         },
         {
           title: "操作",

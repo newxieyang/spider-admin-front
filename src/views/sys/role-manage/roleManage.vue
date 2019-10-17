@@ -147,6 +147,8 @@ import {
   editRoleDep
 } from "@/api/index";
 import util from "@/libs/util.js";
+import dateUtil from "@/libs/dateUtil.js";
+
 export default {
   name: "role-manage",
   data() {
@@ -202,12 +204,20 @@ export default {
           key: "createTime",
           width: 160,
           sortable: true,
-          sortType: "desc"
+          sortType: "desc",
+          render: (h, params) => {
+            let time = dateUtil.transDate(params.row.createTime);
+            return h("div", time);
+          }
         },
         {
           title: "更新时间",
           key: "updateTime",
-          width: 160
+          width: 160,
+          render: (h, params) => {
+            let time = dateUtil.transDate(params.row.updateTime);
+            return h("div", time);
+          }
         },
         {
           title: "是否设置为注册用户默认角色",

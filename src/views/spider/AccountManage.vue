@@ -148,7 +148,7 @@
                         key: "loginTime",
                         minWidth: 300,
                         render: (h, params) => {
-                            let time = dateUtil.transDate(params.row.loginTime);
+                            let time = dateUtil.transDateTime(params.row.loginTime);
                             return h("div", time);
                         }
                     }

@@ -430,7 +430,11 @@ export default {
           key: "createTime",
           sortable: true,
           sortType: "desc",
-          width: 150
+          width: 150,
+          render: (h, params) => {
+            let time = dateUtil.transDate(params.row.createTime);
+            return h("div", time);
+          }
         },
         {
           title: "操作",
