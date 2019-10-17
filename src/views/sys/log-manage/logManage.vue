@@ -51,6 +51,8 @@
 <script>
 import { getLogListData, deleteLog, deleteAllLog } from "@/api/index";
 import circleLoading from "@/views/my-components/circle-loading.vue";
+import dateUtil from "@/libs/dateUtil.js";
+
 export default {
   name: "role-manage",
   components: {
@@ -119,14 +121,14 @@ export default {
           ],
           filterMultiple: false,
           filterMethod(value, row) {
-            if (value == "GET") {
-              return row.requestType == "GET";
-            } else if (value == "POST") {
-              return row.requestType == "POST";
-            } else if (value == "PUT") {
-              return row.requestType == "PUT";
-            } else if (value == "DELETE") {
-              return row.requestType == "DELETE";
+            if (value === "GET") {
+              return row.requestType === "GET";
+            } else if (value === "POST") {
+              return row.requestType === "POST";
+            } else if (value === "PUT") {
+              return row.requestType === "PUT";
+            } else if (value === "DELETE") {
+              return row.requestType === "DELETE";
             }
           }
         },
@@ -138,8 +140,7 @@ export default {
         {
           title: "请求参数",
           minWidth: 200,
-          key: "requestParam",
-          tooltip: true
+          key: "requestParam"
         },
         {
           title: "登录用户",
@@ -150,20 +151,17 @@ export default {
         {
           title: "IP",
           key: "ip",
-          width: 120,
-          sortable: true
+          width: 120
         },
         {
           title: "IP信息",
           key: "ipInfo",
-          width: 100,
-          sortable: true
+          width: 100
         },
         {
           title: "耗时(毫秒)",
           key: "costTime",
           width: 130,
-          sortable: true,
           align: "center",
           filters: [
             {
@@ -177,9 +175,9 @@ export default {
           ],
           filterMultiple: false,
           filterMethod(value, row) {
-            if (value == 0) {
+            if (value === 0) {
               return row.costTime <= 1000;
-            } else if (value == 1) {
+            } else if (value === 1) {
               return row.costTime > 1000;
             }
           }
@@ -190,7 +188,7 @@ export default {
           align: "center",
           width: 110,
           render: (h, params) => {
-            if (params.row.logType == 0) {
+            if (params.row.logType === 0) {
               return h("div", [
                 h(
                   "Tag",
@@ -202,7 +200,7 @@ export default {
                   "操作日志"
                 )
               ]);
-            } else if (params.row.logType == 1) {
+            } else if (params.row.logType === 1) {
               return h("div", [
                 h(
                   "Tag",
@@ -222,7 +220,11 @@ export default {
           key: "createTime",
           sortable: true,
           width: 150,
-          sortType: "desc"
+          sortType: "desc",
+          render: (h, params) => {
+            let time = dateUtil.transDate(params.row.createTime);
+            return h("div", time);
+          }
         },
         {
           title: "操作",
@@ -293,8 +295,8 @@ export default {
       getLogListData(this.searchForm).then(res => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.list;
+          this.total = res.result.total;
         }
       });
     },
@@ -331,7 +333,7 @@ export default {
     changeSort(e) {
       this.searchForm.sort = e.key;
       this.searchForm.order = e.order;
-      if (e.order == "normal") {
+      if (e.order === "normal") {
         this.searchForm.order = "";
       }
       this.getLogList();

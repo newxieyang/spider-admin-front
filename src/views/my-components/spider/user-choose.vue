@@ -134,14 +134,12 @@ export default {
         {
           title: "手机",
           key: "mobile",
-          width: 115,
-          sortable: true
+          width: 115
         },
         {
           title: "邮箱",
           key: "email",
-          width: 180,
-          sortable: true
+          width: 180
         },
         {
           title: "性别",
@@ -253,7 +251,7 @@ export default {
         this.userLoading = false;
         if (res.success) {
           this.userData = res.result.content;
-          this.totalUser = res.result.totalElements;
+          this.totalUser = res.result.total;
         }
       });
     },

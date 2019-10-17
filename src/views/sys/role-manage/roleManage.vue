@@ -195,8 +195,7 @@ export default {
         {
           title: "备注",
           key: "description",
-          minWidth: 190,
-          sortable: true
+          minWidth: 190
         },
         {
           title: "创建时间",
@@ -208,8 +207,7 @@ export default {
         {
           title: "更新时间",
           key: "updateTime",
-          width: 160,
-          sortable: true
+          width: 160
         },
         {
           title: "是否设置为注册用户默认角色",
@@ -431,8 +429,8 @@ export default {
       getRoleList(params).then(res => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.list;
+          this.total = res.result.total;
         }
       });
     },

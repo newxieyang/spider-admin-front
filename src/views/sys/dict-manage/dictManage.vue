@@ -270,8 +270,7 @@ export default {
         {
           title: "备注",
           key: "description",
-          width: 150,
-          sortable: true
+          width: 150
         },
         {
           title: "排序值",
@@ -287,7 +286,7 @@ export default {
           width: 130,
           render: (h, params) => {
             let re = "";
-            if (params.row.status == 0) {
+            if (params.row.status === 0) {
               return h("div", [
                 h("Badge", {
                   props: {
@@ -296,7 +295,7 @@ export default {
                   }
                 })
               ]);
-            } else if (params.row.status == -1) {
+            } else if (params.row.status === -1) {
               return h("div", [
                 h("Badge", {
                   props: {
@@ -463,8 +462,8 @@ export default {
       getAllDictDataList(this.searchForm).then(res => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.list;
+          this.total = res.result.total;
         }
       });
     },
@@ -483,7 +482,7 @@ export default {
     changeSort(e) {
       this.searchForm.sort = e.key;
       this.searchForm.order = e.order;
-      if (e.order == "normal") {
+      if (e.order === "normal") {
         this.searchForm.order = "";
       }
       this.getDataList();

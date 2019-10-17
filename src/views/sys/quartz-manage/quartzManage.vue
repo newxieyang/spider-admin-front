@@ -146,13 +146,11 @@ export default {
         {
           title: "参数",
           key: "parameter",
-          sortable: true,
           width: 180
         },
         {
           title: "备注",
           key: "description",
-          sortable: true,
           minWidth: 180
         },
         {
@@ -332,8 +330,8 @@ export default {
       getQuartzListData(params).then(res => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.list;
+          this.total = res.result.total;
         }
       });
     },

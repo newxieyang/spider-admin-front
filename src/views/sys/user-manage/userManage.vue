@@ -224,6 +224,7 @@ import departmentChoose from "../../my-components/spider/department-choose";
 import departmentTreeChoose from "../../my-components/spider/department-tree-choose";
 import uploadPicInput from "../../my-components/spider/upload-pic-input";
 import circleLoading from "../../my-components/circle-loading.vue";
+import checkPassword from "../../my-components/spider/check-password";
 import dateUtil from "@/libs/dateUtil.js";
 
 export default {
@@ -233,7 +234,8 @@ export default {
     expandRow,
     departmentChoose,
     departmentTreeChoose,
-    uploadPicInput
+    uploadPicInput,
+    checkPassword
   },
   data() {
     return {
@@ -416,10 +418,10 @@ export default {
           ],
           filterMultiple: false,
           filterMethod(value, row) {
-            if (value == 0) {
-              return row.status == 0;
-            } else if (value == -1) {
-              return row.status == -1;
+            if (value === 0) {
+              return row.status === 0;
+            } else if (value === -1) {
+              return row.status === -1;
             }
           }
         },
@@ -609,8 +611,8 @@ export default {
       getUserListData(this.searchForm).then(res => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.list;
+          this.total = res.result.total;
         }
       });
     },
@@ -634,7 +636,7 @@ export default {
     changeSort(e) {
       this.searchForm.sort = e.key;
       this.searchForm.order = e.order;
-      if (e.order == "normal") {
+      if (e.order === "normal") {
         this.searchForm.order = "";
       }
       this.getUserList();
@@ -647,15 +649,15 @@ export default {
       });
     },
     handleDropdown(name) {
-      if (name == "refresh") {
+      if (name === "refresh") {
         this.getUserList();
-      } else if (name == "reset") {
+      } else if (name === "reset") {
         if (this.selectCount <= 0) {
           this.$Message.warning("您还未选择要重置密码的用户");
           return;
         }
         this.$refs.checkPass.show();
-      } else if (name == "exportData") {
+      } else if (name === "exportData") {
         if (this.selectCount <= 0) {
           this.$Message.warning("您还未选择要导出的数据");
           return;
@@ -714,13 +716,13 @@ export default {
     submitUser() {
       this.$refs.userForm.validate(valid => {
         if (valid) {
-          if (this.modalType == 0) {
+          if (this.modalType === 0) {
             // 添加用户 避免编辑后传入id
             delete this.userForm.id;
             delete this.userForm.status;
             if (
-              this.userForm.password == "" ||
-              this.userForm.password == undefined
+              this.userForm.password === "" ||
+              this.userForm.password === undefined
             ) {
               this.errorPass = "密码不能为空";
               return;

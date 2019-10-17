@@ -373,7 +373,7 @@
                 getVersionData(this.searchForm).then(res => {
                     this.loading = false;
                     if (res.success) {
-                        this.data = res.result.rows;
+                        this.data = res.result.list;
                         this.total = res.result.total;
                     }
                 });

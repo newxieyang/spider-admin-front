@@ -58,6 +58,28 @@ export const otherRouter = {
     ]
 };
 
+
+export const pageIndex = {
+    path: '/',
+    name: 'android',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('@/views/Android.vue'),
+    meta: {
+        title: '塔徒'
+    }
+};
+
+export const aboutPage = {
+    path: '/about',
+    name: 'about',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('@/views/About.vue')
+};
+
 export const appRouter = [];
 
 // 所有上面定义的路由都要写在下面的routers里

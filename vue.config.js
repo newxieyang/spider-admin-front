@@ -28,7 +28,7 @@ module.exports = {
         //     'vue-apexcharts': 'VueApexCharts',
         //     xlsx: 'XLSX',
         //     dplayer: 'DPlayer',
-        //     gitalk: 'Gitalk'
+        //     cgitalk: 'Gitalk'
         // },
         // GZIP压缩
         plugins: [

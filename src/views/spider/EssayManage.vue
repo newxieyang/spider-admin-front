@@ -141,8 +141,7 @@
                     {
                         title: "类目",
                         key: "category",
-                        width: 80,
-                        sortable: true
+                        width: 80
                     },
                     {
                         title: "内容",
@@ -205,7 +204,7 @@
                 getEssayData(this.searchForm).then(res => {
                     this.loading = false;
                     if (res.success) {
-                        this.data = res.result.rows;
+                        this.data = res.result.list;
                         this.total = res.result.total;
                     }
                 });

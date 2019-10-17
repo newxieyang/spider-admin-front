@@ -208,7 +208,7 @@
                     this.loading = false;
                     console.log("res" + res.result);
                     if (res.success) {
-                        this.data = res.result.rows;
+                        this.data = res.result.list;
                         this.total = res.result.total;
                     }
                 });
