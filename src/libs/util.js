@@ -1,12 +1,8 @@
-import axios from 'axios';
-import { getMenuList } from '@/api/index';
+import {menuList} from '@/api/index';
 import lazyLoading from './lazyLoading.js';
-import router from '@/router/index';
 import Cookies from "js-cookie";
 
-let util = {
-
-};
+let util = {};
 
 util.title = function (title) {
     title = title || '塔徒后台';
@@ -80,7 +76,7 @@ util.setCurrentPath = function (vm, name) {
         }
     });
     let currentPathArr = [];
-    if (name == 'home_index') {
+    if (name === 'home_index') {
         currentPathArr = [
             {
                 title: util.handleTitle(vm, util.getRouterObjByName(vm.$store.state.app.routers, 'home_index')),
@@ -168,7 +164,7 @@ util.setCurrentPath = function (vm, name) {
 };
 
 util.openNewPage = function (vm, name, argu, query) {
-    if(!vm.$store){
+    if (!vm.$store) {
         return;
     }
     let pageOpenedList = vm.$store.state.app.pageOpenedList;
@@ -254,10 +250,7 @@ util.initRouter = function (vm) {
         return;
     }
     if (!vm.$store.state.app.added) {
-        // 第一次加载 读取数据
-        let authorization = window.localStorage.getItem('authorization');
-        // 加载菜单
-        axios.get(getMenuList, { headers: { 'authorization': authorization } }).then(res => {
+        menuList().then(res => {
             let menuData = res.result;
             if (!menuData) {
                 return;
@@ -273,11 +266,11 @@ util.initRouter = function (vm) {
             // 缓存数据 修改加载标识
             window.localStorage.setItem('menuData', JSON.stringify(menuData));
             vm.$store.commit('setAdded', true);
-        });
+        })
     } else {
         // 读取缓存数据
         let data = window.localStorage.getItem('menuData');
-        if(!data){
+        if (!data) {
             vm.$store.commit('setAdded', false);
             return;
         }
@@ -292,8 +285,8 @@ util.initAllMenuData = function (constRoutes, data) {
 
     let allMenuData = [];
     data.forEach(e => {
-        if(e.type==-1){
-            e.children.forEach(item=>{
+        if (e.type === -1) {
+            e.children.forEach(item => {
                 allMenuData.push(item);
             })
         }
@@ -324,7 +317,7 @@ util.initMenuData = function (vm, data) {
     if (currNav) {
         // 读取缓存title
         for (var item of navList) {
-            if (item.name == currNav) {
+            if (item.name === currNav) {
                 vm.$store.commit('setCurrNavTitle', item.title);
                 break;
             }

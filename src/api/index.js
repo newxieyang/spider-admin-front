@@ -4,14 +4,9 @@ import { getRequest, postRequest, putRequest, deleteRequest, getRequestWithNoTok
 
 
 // 文件上传接口
-export const uploadFile = "/spider/upload/file"
+export const uploadFile = "/api/upload/file";
 // 验证码渲染图片接口
-export const drawCodeImage = "/spider/common/captcha/draw/"
-// 获取菜单
-export const getMenuList = "/spider/permission/getMenuList"
-// 获取数据字典
-export const getDictData = "/spider/dictData/getByType/"
-
+export const drawCodeImage = "/api/common/captcha/draw/";
 
 
 // 登陆
@@ -49,6 +44,15 @@ export const changePass = (params) => {
 // 解锁
 export const unlock = (params) => {
     return postRequest('/user/unlock', params)
+}
+
+// 获取性别字典
+export const getSex = () => {
+    return getRequestWithNoToken('/dictData/getByType/sex')
+}
+//获取菜单
+export const menuList = () => {
+    return getRequest('/permission/getMenuList')
 }
 
 
